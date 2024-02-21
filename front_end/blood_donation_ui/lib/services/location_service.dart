@@ -6,11 +6,21 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
+class Address {
+  String? locality;
+  String? street;
+  String? postalCode;
+  String? country;
+
+  Address({this.locality, this.street, this.postalCode, this.country});
+}
+
 class LocationService with ChangeNotifier {
   MapController _mapController = MapController();
-  String _address = "";
+  Address _address =
+      Address(country: "", locality: "", postalCode: "", street: "");
 
-  String get address {
+  Address get address {
     return _address;
   }
 
@@ -39,7 +49,7 @@ class LocationService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> getAddressFromLatLng(LatLng latLng) async {
+  Future<Address> getAddressFromLatLng(LatLng latLng) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
         latLng.latitude,
@@ -47,9 +57,14 @@ class LocationService with ChangeNotifier {
       );
 
       Placemark place = placemarks[0];
-      String address =
-          "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
-      return address;
+      return Address(
+          street: place.street,
+          postalCode: place.postalCode,
+          country: place.country,
+          locality: place.locality);
+      // String address =
+      //     "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
+      // return address;
     } catch (e) {
       throw Error();
     }
@@ -62,7 +77,6 @@ class LocationService with ChangeNotifier {
     _long = position.longitude;
     _address = await getAddressFromLatLng(LatLng(_lat, _long));
     _mapController.move(LatLng(_lat, _long), 13);
-    log(_address);
     log("$_lat, $_long");
     notifyListeners();
   }
