@@ -22,13 +22,13 @@ class BloodDonationApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const UserLocationScreen(),
+        home: const SplashScreen(),
         routes: {
           AuthScreen.routeName: (context) => const AuthScreen(),
           PhoneVerificationScreen.routeName: (context) =>
               const PhoneVerificationScreen(),
           DetailsScreen.routeName: (context) => const DetailsScreen(),
-          UserLocationScreen.routeName: (context) => const UserLocationScreen()
+          UserLocationScreen.routeName: (context) => const UserLocationScreen(),
         },
       ),
     );

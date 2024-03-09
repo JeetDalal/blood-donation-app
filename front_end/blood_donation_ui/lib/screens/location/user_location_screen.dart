@@ -31,6 +31,15 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     final _provider = Provider.of<LocationService>(context);
     // log("Latitude:${_provider.lat} Longitude: ${_provider.long}");
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        centerTitle: false,
+        title: Text(
+          "set your location",
+          style: GoogleFonts.quando(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+        ),
+      ),
       body: SizedBox(
         child: Stack(
           children: [
@@ -128,18 +137,23 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Confirm Address > ",
-                                style: GoogleFonts.quando(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                          child: InkWell(
+                            onTap: () {
+                              //
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Confirm Address > ",
+                                  style: GoogleFonts.quando(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
